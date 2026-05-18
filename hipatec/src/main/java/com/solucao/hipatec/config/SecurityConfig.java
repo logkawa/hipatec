@@ -1,4 +1,5 @@
-package config; 
+package com.solucao.hipatec.config;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -9,13 +10,13 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
         http
-            .csrf(csrf -> csrf.disable()) // desativa proteção CSRF (ok pra API)
+            .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                .anyRequest().permitAll() // libera tudo
+                .anyRequest().permitAll()
             );
 
         return http.build();
     }
-    
 }
