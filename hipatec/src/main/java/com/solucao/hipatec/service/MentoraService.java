@@ -24,6 +24,11 @@ public class MentoraService {
         return repository.findAll();
     }
 
+    
+    public Mentora buscarPorId(Integer id) {
+        return repository.findById(id).orElse(null);
+    }
+
     public Mentora salvar(Mentora mentora) {
         return repository.save(mentora);
     }

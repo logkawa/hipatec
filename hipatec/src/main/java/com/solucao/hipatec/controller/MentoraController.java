@@ -28,6 +28,11 @@ public class MentoraController {
         return service.salvar(mentora);
     }
 
+    @GetMapping("/{id}")
+    public Mentora buscarPorId(@PathVariable Integer id) {    
+        return service.buscarPorId(id);
+    }
+
     // LOGIN
     @PostMapping("/login")
     public Integer login(

@@ -24,6 +24,10 @@ public class EstudanteService {
         return repository.findAll();
     }
 
+    public Estudante buscarPorId(Integer id) {
+        return repository.findById(id).orElse(null);
+    }
+
     public Estudante salvar(Estudante estudante) {
         return repository.save(estudante);
     }

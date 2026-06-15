@@ -26,6 +26,11 @@ public class EstudanteController {
         return service.listar();
     }
 
+    @GetMapping("/{id}")
+    public Estudante buscarPorId(@PathVariable Integer id) {    
+        return service.buscarPorId(id);
+    }
+
     // SALVAR ESTUDANTE
     @PostMapping
     public Estudante salvar(@RequestBody Estudante estudante) {
