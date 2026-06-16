@@ -1,12 +1,18 @@
 package com.solucao.hipatec.service;
 
 import com.solucao.hipatec.model.Mentora;
+import com.solucao.hipatec.model.Mentora;
+import com.solucao.hipatec.model.Perfil;
 import com.solucao.hipatec.repository.MentoraRepository;
+import com.solucao.hipatec.repository.MentoraRepository;
+import com.solucao.hipatec.repository.PerfilRepository;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.StoredProcedureQuery;
+import jakarta.transaction.Transactional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,10 +33,6 @@ public class MentoraService {
     
     public Mentora buscarPorId(Integer id) {
         return repository.findById(id).orElse(null);
-    }
-
-    public Mentora salvar(Mentora mentora) {
-        return repository.save(mentora);
     }
 
      @PersistenceContext
@@ -58,5 +60,39 @@ public class MentoraService {
         Object resultado = query.getSingleResult();
 
         return ((Number) resultado).intValue();
+    }
+
+    @Autowired
+    private MentoraRepository MentoraRepository;
+
+    @Autowired
+    private PerfilRepository perfilRepository;
+
+    @Transactional
+    public Mentora salvar(Mentora mentora) {
+
+        System.out.println("Entrou no save");
+
+        Mentora mentoraSalvo = MentoraRepository.save(mentora);
+
+        System.out.println("Mentora salvo: " + mentoraSalvo.getId());
+
+        Perfil perfil = new Perfil();
+
+        perfil.setUsuario(mentora.getUsuario());
+
+        System.out.println("Usuario: " + mentora.getUsuario());
+
+        perfil.setBiografia("");
+        perfil.setNum_seguidores(0);
+        perfil.setNum_seguindo(0);
+
+        perfil.setId_mentora(mentoraSalvo.getId());
+
+        perfilRepository.save(perfil);
+
+        System.out.println("Perfil salvo");
+
+        return mentoraSalvo;
     }
 }

@@ -55,7 +55,9 @@ public class PerfilController {
 
             @RequestParam String biografia,
 
-            @RequestParam(required = false) MultipartFile foto
+            @RequestParam(required = false) MultipartFile pfp,
+
+            @RequestParam(required = false) MultipartFile background
 
     ) {
 
@@ -65,6 +67,7 @@ public class PerfilController {
                 nome,
                 usuario,
                 biografia,
-                foto);
+                pfp,
+                background);
     }
 }

@@ -92,7 +92,9 @@ public class PerfilService {
             String nome,
             String usuario,
             String biografia,
-            MultipartFile foto) {
+            MultipartFile pfp,
+            MultipartFile background
+        ) {
 
         Perfil perfil;
 
@@ -122,11 +124,18 @@ public class PerfilService {
         perfil.setUsuario(usuario);
         perfil.setBiografia(biografia);
 
-        if (foto != null && !foto.isEmpty()) {
+        if (pfp != null && !pfp.isEmpty()) {
 
-            String urlImagem = cloudinaryService.uploadFile(foto);
+            String urlImagem = cloudinaryService.uploadFile(pfp);
 
             perfil.setPfp(urlImagem);
+        }
+
+        if (background != null && !background.isEmpty()) {
+
+            String urlImagem = cloudinaryService.uploadFile(background);
+
+            perfil.setBackground(urlImagem);
         }
 
         perfilRepository.save(perfil);
