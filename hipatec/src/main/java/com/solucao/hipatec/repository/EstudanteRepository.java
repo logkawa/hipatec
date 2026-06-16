@@ -11,4 +11,6 @@ public interface EstudanteRepository extends JpaRepository<Estudante, Integer> {
     //         @Param("email") String email,
     //         @Param("senha") String senha
     //   );
+
+    
 }

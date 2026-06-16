@@ -1,7 +1,5 @@
 package com.solucao.hipatec.model;
 
-import java.time.LocalDate;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -11,28 +9,34 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import jakarta.persistence.Transient;
 
 @Entity
-@Table(name = "estudante")
+@Table(name = "perfil")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Estudante {
+public class Perfil {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String nome;
+    private String biografia;
 
-    private String email;
+    private Integer num_seguidores = 0;
 
-    private String senha;
+    private Integer num_seguindo = 0;
 
-    private LocalDate dataNascimento;
+    private Integer num_publicacoes = 0;
 
-    @Transient
     private String usuario;
+
+    private String pfp;
+
+    private String background;
+
+    private Integer id_estudante;
+    
+    private Integer id_mentora;
 }

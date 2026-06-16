@@ -1,12 +1,16 @@
 package com.solucao.hipatec.service;
 
 import com.solucao.hipatec.model.Estudante;
+import com.solucao.hipatec.model.Perfil;
 import com.solucao.hipatec.repository.EstudanteRepository;
+import com.solucao.hipatec.repository.PerfilRepository;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.StoredProcedureQuery;
+import jakarta.transaction.Transactional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,9 +32,6 @@ public class EstudanteService {
         return repository.findById(id).orElse(null);
     }
 
-    public Estudante salvar(Estudante estudante) {
-        return repository.save(estudante);
-    }
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -41,14 +42,12 @@ public class EstudanteService {
         query.registerStoredProcedureParameter(
                 "email",
                 String.class,
-                jakarta.persistence.ParameterMode.IN
-        );
+                jakarta.persistence.ParameterMode.IN);
 
         query.registerStoredProcedureParameter(
                 "senha",
                 String.class,
-                jakarta.persistence.ParameterMode.IN
-        );
+                jakarta.persistence.ParameterMode.IN);
 
         query.setParameter("email", email);
         query.setParameter("senha", senha);
@@ -56,5 +55,39 @@ public class EstudanteService {
         Object resultado = query.getSingleResult();
 
         return ((Number) resultado).intValue();
+    }
+
+    @Autowired
+    private EstudanteRepository estudanteRepository;
+
+    @Autowired
+    private PerfilRepository perfilRepository;
+
+    @Transactional
+    public Estudante salvar(Estudante estudante) {
+
+        System.out.println("Entrou no save");
+
+        Estudante estudanteSalvo = estudanteRepository.save(estudante);
+
+        System.out.println("Estudante salvo: " + estudanteSalvo.getId());
+
+        Perfil perfil = new Perfil();
+
+        perfil.setUsuario(estudante.getUsuario());
+
+        System.out.println("Usuario: " + estudante.getUsuario());
+
+        perfil.setBiografia("");
+        perfil.setNum_seguidores(0);
+        perfil.setNum_seguindo(0);
+
+        perfil.setId_estudante(estudanteSalvo.getId());
+
+        perfilRepository.save(perfil);
+
+        System.out.println("Perfil salvo");
+
+        return estudanteSalvo;
     }
 }
