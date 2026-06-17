@@ -75,6 +75,8 @@ public class PerfilService {
             dto.setEmail(mentora.getEmail());
         }
 
+        dto.setId(perfil.getId());
+        dto.setRole(role);
         dto.setUsuario(perfil.getUsuario());
         dto.setBiografia(perfil.getBiografia());
         dto.setNum_seguidores(perfil.getNum_seguidores());

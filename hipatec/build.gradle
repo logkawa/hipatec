@@ -52,6 +52,7 @@ dependencies {
 
 	implementation 'com.cloudinary:cloudinary-core:2.0.0'
 	implementation 'com.cloudinary:cloudinary-http5:2.0.0'
+	implementation 'com.google.firebase:firebase-admin:9.4.3'
 }
 
 tasks.named('test') {

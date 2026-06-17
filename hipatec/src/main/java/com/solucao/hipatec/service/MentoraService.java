@@ -1,9 +1,7 @@
 package com.solucao.hipatec.service;
 
 import com.solucao.hipatec.model.Mentora;
-import com.solucao.hipatec.model.Mentora;
 import com.solucao.hipatec.model.Perfil;
-import com.solucao.hipatec.repository.MentoraRepository;
 import com.solucao.hipatec.repository.MentoraRepository;
 import com.solucao.hipatec.repository.PerfilRepository;
 
